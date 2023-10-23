@@ -4,7 +4,7 @@ import time
 now = time.strftime("%d %b, %Y. %H:%M:%S")
 print(now)
 
-todo_file_name = input("Select TODO list to open: ")
+# todo_file_name = input("Select TODO list to open: ")
 
 while True:
     user_action = input("add, show, edit, complete, exit: ")
@@ -15,23 +15,23 @@ while True:
         todo = user_action[4:] + '\n'
 
         # Read existing todos from the selected file
-        todos = read_todos(todo_file_name + '.txt')
+        todos = read_todos()
 
         # Add the new todo to the list of existing todos
         todos.append(todo)
 
         # Write the updated list of todos back to the file
-        write_todos(todos, todo_file_name + '.txt')
+        write_todos(todos)
 
     elif user_action.startswith('show'):
         # Read and display the todos from the selected file
-        todos = read_todos(todo_file_name + '.txt')
+        todos = read_todos()
         show_todos(todos)
 
     elif user_action.startswith('edit'):
         try:
             # Read existing todos from the selected file
-            todos = read_todos(todo_file_name + '.txt')
+            todos = read_todos()
 
             # Extract the index of the todo to be edited
             number = int(user_action[5:]) - 1
@@ -45,7 +45,7 @@ while True:
             todos[number] = new_todo
 
             # Write the updated list of todos back to the file
-            write_todos(todos, todo_file_name + '.txt')
+            write_todos(todos)
         except ValueError:
             print("Your command is not valid")
             continue
@@ -53,7 +53,7 @@ while True:
     elif user_action.startswith('complete'):
         try:
             # Read existing todos from the selected file
-            todos = read_todos(todo_file_name + '.txt')
+            todos = read_todos()
 
             # Extract the index of the todo to be marked as complete and remove it
             number = int(user_action[9:])
@@ -64,7 +64,7 @@ while True:
             show_todos(todos)
 
             # Write the updated list of todos back to the file
-            write_todos(todos, todo_file_name + '.txt')
+            write_todos(todos)
         except IndexError:
             print("There is no item with that number")
             continue
